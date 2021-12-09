@@ -1,0 +1,51 @@
+## Tor will look for this file in various places based on your platform:
+## https://www.torproject.org/docs/faq#torrc
+
+## Tor opens a SOCKS proxy on port 9050 by default -- even if you don't
+## configure one below. Set "SOCKSPort 0" if you plan to run Tor only
+## as a relay, and not make any local application connections yourself.
+SocksPort unix:/run/tor/socks WorldWritable RelaxDirModeCheck
+SOCKSPort 0.0.0.0:9050
+
+## Entry policies to allow/deny SOCKS requests based on IP address.
+## First entry that matches wins. If no SOCKSPolicy is set, we accept
+## all (and only) requests that reach a SOCKSPort. Untrusted users who
+## can access your SOCKSPort may be able to learn about the connections
+## you make.
+SOCKSPolicy accept 10.0.0.0/8
+SOCKSPolicy accept 127.0.0.1/8
+SOCKSPolicy accept 172.16.0.0/12
+SOCKSPolicy accept 192.168.0.0/16
+SOCKSPolicy reject *
+
+## Logs go to stdout at level "notice" unless redirected by something
+## else, like one of the below lines. You can have as many Log lines as
+## you want.
+##
+## We advise using "notice" in most cases, since anything more verbose
+## may provide sensitive information to an attacker who obtains the logs.
+##
+## Send all messages of level 'notice' or higher to stdout.
+Log notice stdout
+
+## The directory for keeping all the keys/etc.
+DataDirectory /var/lib/tor
+
+## The port on which Tor will listen for local connections from Tor
+## controller applications, as documented in control-spec.txt.
+ControlPort 0.0.0.0:9051
+ControlSocket /run/tor/control WorldWritable RelaxDirModeCheck
+
+CookieAuthentication 1
+CookieAuthFileGroupReadable 1
+CookieAuthFile /run/tor/control.authcookie
+
+## Configuration options can be imported from files or folders using the %include
+## option with the value being a path. This path can have wildcards. Wildcards are
+## expanded first, using lexical order. Then, for each matching file or folder, the following
+## rules are followed: if the path is a file, the options from the file will be parsed as if
+## they were written where the %include option is. If the path is a folder, all files on that
+## folder will be parsed following lexical order. Files starting with a dot are ignored.
+## Files on subfolders are ignored.
+## The %include option can be used recursively.
+%include /etc/tor/torrc.d/*.conf
