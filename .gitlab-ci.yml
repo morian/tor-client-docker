@@ -42,6 +42,11 @@ stages:
   extends: .generic
   stage: build
 
+tor-client:0.4.5.9:
+  variables:
+    TOR_VER: "0.4.5.9"
+  extends: .generic-build
+
 tor-client:0.4.6.7:
   variables:
     TOR_VER: "0.4.6.7"
