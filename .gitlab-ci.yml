@@ -44,8 +44,12 @@ stages:
   extends: .generic
   stage: build
 
+# Latest version with support for OnionV2.
 tor-client:0.4.5.9:
   extends: .generic-build
 
-tor-client:0.4.6.9:
+tor-client:0.4.6.12:
+  extends: .generic-build
+
+tor-client:0.4.7.10:
   extends: .generic-build
