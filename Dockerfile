@@ -32,8 +32,9 @@ RUN wget ${TOR_TAR}                   \
  && wget ${TOR_TAR}.sha256sum.asc
 
 ## Verify Tor source tarball fingerprint and signatures.
-# This is performed using Nick Mathewson's key.
+# This is performed using Nick Mathewson's key as well as the one from David Goulet.
 RUN gpg --keyserver keys.openpgp.org --recv-keys 7A02B3521DC75C542BA015456AFEE6D49E92B601 \
+ && gpg --keyserver keys.openpgp.org --recv-keys B74417EDDF22AC9F9E90F49142E86A2A11F48D36 \
  && gpg --verify tor-${TOR_VER}.tar.gz.sha256sum.asc tor-${TOR_VER}.tar.gz.sha256sum      \
  && sha256sum -c tor-${TOR_VER}.tar.gz.sha256sum tor-${TOR_VER}.tar.gz
 
