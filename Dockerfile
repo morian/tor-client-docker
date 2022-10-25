@@ -9,9 +9,8 @@ FROM alpine:${ALPINE_VER} AS builder
 
 ## TOR_VER can be overwritten with --build-arg at build time
 ## Default is the latest version with support for OnionV2.
-ARG TOR_VER=0.4.6.7
+ARG TOR_VER=0.4.7.10
 ARG TOR_TAR=https://dist.torproject.org/tor-${TOR_VER}.tar.gz
-ARG TOR_KEY=0xFE43009C4607B1FB
 
 ## Install Tor build requirements.
 RUN apk --no-cache add --update   \
@@ -27,12 +26,16 @@ RUN apk --no-cache add --update   \
 ## Build everything in a dedicated directory.
 WORKDIR /build
 
-## Get Tor signature and source tarball file.
-RUN wget ${TOR_TAR}.asc && wget ${TOR_TAR}
+## Get Tor source tarball file as well as its fingerprint and signature.
+RUN wget ${TOR_TAR}                   \
+ && wget ${TOR_TAR}.sha256sum         \
+ && wget ${TOR_TAR}.sha256sum.asc
 
-## Verify Tor source tarballs asc signatures.
-RUN gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys ${TOR_KEY}
-RUN gpg --verify tor-${TOR_VER}.tar.gz.asc tor-${TOR_VER}.tar.gz
+## Verify Tor source tarball fingerprint and signatures.
+# This is performed using Nick Mathewson's key.
+RUN gpg --keyserver keys.openpgp.org --recv-keys 7A02B3521DC75C542BA015456AFEE6D49E92B601 \
+ && gpg --verify tor-${TOR_VER}.tar.gz.sha256sum.asc tor-${TOR_VER}.tar.gz.sha256sum      \
+ && sha256sum -c tor-${TOR_VER}.tar.gz.sha256sum tor-${TOR_VER}.tar.gz
 
 ## Build and install Tor.
 RUN tar xfz tor-${TOR_VER}.tar.gz \
