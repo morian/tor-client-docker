@@ -1,6 +1,6 @@
 ## ALPINE_VER can be overwritten with --build-arg
 ## Pinned version tag from https://hub.docker.com/_/alpine
-ARG ALPINE_VER=3.18
+ARG ALPINE_VER=3.19
 
 ###########################
 # First stage: build Tor from sources.

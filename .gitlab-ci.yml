@@ -55,5 +55,5 @@ tor-client:0.4.6.12:
 tor-client:0.4.7.16:
   extends: .generic-build
 
-tor-client:0.4.8.9:
+tor-client:0.4.8.10:
   extends: .generic-build
