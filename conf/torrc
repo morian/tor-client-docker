@@ -4,6 +4,9 @@
 ## Tor opens a SOCKS proxy on port 9050 by default -- even if you don't
 ## configure one below. Set "SocksPort 0" if you plan to run Tor only
 ## as a relay, and not make any local application connections yourself.
+# RelaxDirModeCheck: Allow '/run/tor/' to be a read-write directory.
+# ExtendedErrors: Socks server raises advanced errors for onion domains.
+# See: https://gitweb.torproject.org/debian/tor.git/tree/src/lib/net/socks5_status.h
 SocksPort unix:/run/tor/socks WorldWritable ExtendedErrors RelaxDirModeCheck
 SocksPort 0.0.0.0:9050 ExtendedErrors
 
@@ -18,13 +21,6 @@ SocksPolicy accept 172.16.0.0/12
 SocksPolicy accept 192.168.0.0/16
 SocksPolicy reject *
 
-## Logs go to stdout at level "notice" unless redirected by something
-## else, like one of the below lines. You can have as many Log lines as
-## you want.
-##
-## We advise using "notice" in most cases, since anything more verbose
-## may provide sensitive information to an attacker who obtains the logs.
-##
 ## Send all messages of level 'notice' or higher to stdout.
 Log notice stdout
 

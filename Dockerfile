@@ -9,18 +9,18 @@ FROM alpine:${ALPINE_VER} AS builder
 
 ## TOR_VER can be overwritten with --build-arg at build time
 ## Default is the latest version with support for OnionV2.
-ARG TOR_VER=0.4.7.13
+ARG TOR_VER=0.4.8.10
 ARG TOR_TAR=https://dist.torproject.org/tor-${TOR_VER}.tar.gz
 
 ## Install Tor build requirements.
-RUN apk --no-cache add --update   \
-      alpine-sdk                  \
-      gnupg                       \
-      libevent                    \
-      libevent-dev                \
-      openssl                     \
-      openssl-dev                 \
-      zlib                        \
+RUN apk --no-cache add --update       \
+      alpine-sdk                      \
+      gnupg                           \
+      libevent                        \
+      libevent-dev                    \
+      openssl                         \
+      openssl-dev                     \
+      zlib                            \
       zlib-dev
 
 ## Build everything in a dedicated directory.
@@ -33,10 +33,11 @@ RUN wget ${TOR_TAR}                   \
 
 ## Verify Tor source tarball fingerprint and signatures.
 # This is performed using Nick Mathewson's key as well as the one from David Goulet.
-RUN gpg --keyserver keys.openpgp.org --recv-keys 514102454D0A87DB0767A1EBBE6A0531C18A9179 \
- && gpg --keyserver keys.openpgp.org --recv-keys 7A02B3521DC75C542BA015456AFEE6D49E92B601 \
- && gpg --keyserver keys.openpgp.org --recv-keys B74417EDDF22AC9F9E90F49142E86A2A11F48D36 \
- && gpg --verify tor-${TOR_VER}.tar.gz.sha256sum.asc tor-${TOR_VER}.tar.gz.sha256sum      \
+RUN gpg --keyserver keys.openpgp.org --recv-keys                                      \
+   514102454D0A87DB0767A1EBBE6A0531C18A9179                                           \
+   7A02B3521DC75C542BA015456AFEE6D49E92B601                                           \
+   B74417EDDF22AC9F9E90F49142E86A2A11F48D36                                           \
+ && gpg --verify tor-${TOR_VER}.tar.gz.sha256sum.asc tor-${TOR_VER}.tar.gz.sha256sum  \
  && sha256sum -c tor-${TOR_VER}.tar.gz.sha256sum
 
 ## Build and install Tor.
