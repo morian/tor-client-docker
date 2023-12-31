@@ -5,7 +5,7 @@ This image contains is based on alpine and runs the Tor daemon for Socks and Con
 Socks5 server is exposed on port TCP/9050, Control server is exposed on TCP/9051.
 
 
-# Build the container
+## Build the docker image
 
 You can easily use the following variables to control which version of Tor you want to build:
 - *ALPINE_VER*: set the version of alpine (base image)
@@ -19,7 +19,7 @@ Tor archives are pulled from [Tor's distribution mirror](https://dist.torproject
 checked against PGP keys [mentionned by the Tor project](https://support.torproject.org/little-t-tor/verify-little-t-tor/).
 
 
-# Use the container
+## Use the docker image
 
 Additional configuration entries can be provided by mounting a host directory to `/etc/tor/torrc.d/`
 inside the container (all `.conf` files will be read).
@@ -27,6 +27,7 @@ inside the container (all `.conf` files will be read).
 If you want to maintain a consistent daemon state accross multiple runs, make sure to save
 `/var/lib/tor` to a persistent docker volume as it is used by Tor to save its current state.
 
+Pre-built images are [available in docker hub](https://hub.docker.com/repository/docker/morian42/tor-client/).
 
 You can provide the hashed password for the controller from the command line:
 ```yaml
