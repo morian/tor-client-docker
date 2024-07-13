@@ -12,7 +12,7 @@ You can easily use the following variables to control which version of Tor you w
 - *TOR_VER*: set the version of Tor
 
 ```sh
-docker build --build-arg TOR_VER="0.4.8.10" .
+docker build --build-arg TOR_VER="0.4.8.12" .
 ```
 
 Tor archives are pulled from [Tor's distribution mirror](https://dist.torproject.org/) and
