@@ -1,6 +1,6 @@
 ## ALPINE_VER can be overwritten with --build-arg
 ## Pinned version tag from https://hub.docker.com/_/alpine
-ARG ALPINE_VER=3.20
+ARG ALPINE_VER=3.21
 
 ###########################
 # First stage: build Tor from sources.
@@ -44,6 +44,7 @@ RUN gpg --keyserver keys.openpgp.org --recv-keys                                
 RUN tar xfz tor-${TOR_VER}.tar.gz \
  && cd tor-${TOR_VER}             \
  && ./configure                   \
+      --enable-gpl                \
       --prefix=/usr/              \
       --sysconfdir=/etc           \
       --localstatedir=/var        \
