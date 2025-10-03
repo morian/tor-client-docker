@@ -54,5 +54,5 @@ stages:
 tor-client:0.4.7.16:
   extends: .generic-build
 
-tor-client:0.4.8.17:
+tor-client:0.4.8.18:
   extends: .generic-build
