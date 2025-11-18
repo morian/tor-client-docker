@@ -20,7 +20,7 @@ You can also provide the hashed password for the controller from the command lin
 ---
 service:
   tor-client:
-    image: "morian42/tor-client:0.4.8.20"
+    image: "morian42/tor-client:0.4.8.21"
     ports:
       - "127.0.0.1:9050:9050"
       - "127.0.0.1:9051:9051"
@@ -52,7 +52,7 @@ The following build variables are used to control both the alpine and Tor versio
 - *TOR_VER*: set the version of Tor to build
 
 ```sh
-docker build --build-arg TOR_VER="0.4.8.20" .
+docker build --build-arg TOR_VER="0.4.8.21" .
 ```
 
 Tor archives are pulled from [Tor's distribution mirror](https://dist.torproject.org/) and
