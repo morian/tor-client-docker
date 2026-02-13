@@ -21,7 +21,9 @@ RUN apk --no-cache add --update       \
       openssl                         \
       openssl-dev                     \
       zlib                            \
-      zlib-dev
+      zlib-dev                        \
+      zstd                            \
+      zstd-dev
 
 ## Build everything in a dedicated directory.
 WORKDIR /build
@@ -48,6 +50,7 @@ RUN tar xfz tor-${TOR_VER}.tar.gz \
       --prefix=/usr/              \
       --sysconfdir=/etc           \
       --localstatedir=/var        \
+      --disable-asciidoc          \
       --disable-html-manual       \
       --disable-manpage           \
       --disable-module-relay      \
@@ -60,10 +63,11 @@ RUN tar xfz tor-${TOR_VER}.tar.gz \
 ###########################
 FROM alpine:${ALPINE_VER} AS release
 
+ARG TOR_VER=0.4.8.22
 ARG TOR_HOME=/var/lib/tor
 
 ## Install Tor dependencies (binary files only).
-RUN apk --no-cache add --update libevent openssl
+RUN apk --no-cache add --update libevent openssl zstd
 
 ## Create a Tor user for increased security.
 RUN addgroup --gid 800 --system tor         \
