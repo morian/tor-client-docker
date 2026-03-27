@@ -9,7 +9,7 @@ FROM alpine:${ALPINE_VER} AS builder
 
 ## TOR_VER can be overwritten with --build-arg at build time
 ## Default is the latest version with support for OnionV2.
-ARG TOR_VER=0.4.8.22
+ARG TOR_VER=0.4.9.6
 ARG TOR_TAR=https://dist.torproject.org/tor-${TOR_VER}.tar.gz
 
 ## Install Tor build requirements.
@@ -63,7 +63,7 @@ RUN tar xfz tor-${TOR_VER}.tar.gz \
 ###########################
 FROM alpine:${ALPINE_VER} AS release
 
-ARG TOR_VER=0.4.8.22
+ARG TOR_VER=0.4.9.6
 ARG TOR_HOME=/var/lib/tor
 
 ## Install Tor dependencies (binary files only).
