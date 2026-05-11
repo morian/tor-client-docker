@@ -9,7 +9,7 @@ Socks5 server is exposed on port TCP/9050, Control server is exposed on TCP/9051
 Additional configuration entries can be provided by mounting a host directory to `/etc/tor/torrc.d/`
 inside the container (all `.conf` files will be read).
 
-If you want to maintain a consistent daemon state accross multiple runs, make sure to mount
+If you want to maintain a consistent daemon state across multiple runs, make sure to mount
 `/var/lib/tor` in a persistent docker volume as it is used by Tor to save its current state.
 This would speed up the starting process and lower the load on the network.
 
@@ -56,4 +56,4 @@ docker build --build-arg TOR_VER="0.4.9.8" .
 ```
 
 Tor archives are pulled from [Tor's distribution mirror](https://dist.torproject.org/) and
-checked against PGP keys [mentionned by the Tor project](https://support.torproject.org/little-t-tor/verify-little-t-tor/).
+checked against PGP keys [mentioned by the Tor project](https://support.torproject.org/little-t-tor/verify-little-t-tor/).
